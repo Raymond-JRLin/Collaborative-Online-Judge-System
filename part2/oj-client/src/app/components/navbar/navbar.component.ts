@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
+  tittle = "Collaborative Online Judge System";
+
+  username = "Raymond";
+
   constructor() { }
 
   ngOnInit() {
