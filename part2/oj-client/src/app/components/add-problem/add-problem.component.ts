@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Problem } from "../../models/problem.model";
+
+const DEFAULT_PROBLEM: Problem = Object.freeze({
+  id: 0,
+  name: "",
+  desc: "",
+  difficulty: "Easy"
+});
 
 @Component({
   selector: 'app-add-problem',
@@ -7,9 +15,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddProblemComponent implements OnInit {
 
-  constructor() { }
+  public difficulties = ["Easy", "Medium","Hard", "Super"];
+
+  newProblem: Problem = Object.assign({}, DEFAULT_PROBLEM); // make a default problem
+
+  constructor(@Inject("data") private data) { }
 
   ngOnInit() {
+  }
+
+  addProblem(): void {
+    this.data.addProblem(this.newProblem);
+    this.newProblem = Object.assign({}, DEFAULT_PROBLEM);
   }
 
 }
