@@ -10,13 +10,17 @@ import { ProblemListComponent } from './components/problem-list/problem-list.com
 import { ProblemDetailComponent } from './components/problem-detail/problem-detail.component';
 
 import { DataService } from "./services/data.service";
+import { AddProblemComponent } from './components/add-problem/add-problem.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ProblemListComponent,
-    ProblemDetailComponent
+    ProblemDetailComponent,
+    AddProblemComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
