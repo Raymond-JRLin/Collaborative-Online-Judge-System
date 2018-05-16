@@ -4,6 +4,10 @@
 /dist
 /tmp
 
+/public
+
+oj-client/dist/
+
 # dependencies
 node_modules/
 
