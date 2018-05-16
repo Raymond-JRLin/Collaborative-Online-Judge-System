@@ -30,27 +30,46 @@ var problems = [
     difficulty: "super"
   }];
 
+var problemModel = require('../models/problemModel');
+
 var getProblems = function () {
   return new Promise(function(resolve, reject) {
-    resolve(problems);
+    ProblemModel.find({}, function (err, problems) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(problems);
+      }
+    });
   });
 }
 
 var getProblem = function (id) {
   return new Promise(function(resolve, reject) {
-    resolve(problems.find(problem => problem.id === id));
+    ProblemModel.findOne({ id: id }, function (err, problem) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(problem);
+      }
+    });
   });
 }
 
 var addProblem = function (newProblem) {
   return new Promise((resolve, reject) => {
-    if (problems.find(problem => problem.name === newProblem.name)) {
-      reject("Problem already exist!");
-    } else {
-      newProblem.id = problems.length + 1;
-      problems.push(newProblem);
-      resolve(newProblem);
-    }
+    ProblemModel.findOne({ name: newProblem:name }, function (err, problem) {
+      if (problem) {
+        reject("Problem name already exist!");
+      } else {
+        ProblemModel.count({}, function (err, num) {
+          newProblem.id = num + 1;
+          var mongoProblem = new ProblemModel(newProblem);
+          mongoProblem.save();
+          resolve(newProblem);
+        });
+      }
+    });
   });
 }
 
