@@ -30,7 +30,7 @@ var problems = [
     difficulty: "super"
   }];
 
-var problemModel = require('../models/problemModel');
+var ProblemModel = require('../models/problemModel');
 
 var getProblems = function () {
   return new Promise(function(resolve, reject) {
@@ -58,7 +58,7 @@ var getProblem = function (id) {
 
 var addProblem = function (newProblem) {
   return new Promise((resolve, reject) => {
-    ProblemModel.findOne({ name: newProblem:name }, function (err, problem) {
+    ProblemModel.findOne({ name: newProblem.name }, function (err, problem) {
       if (problem) {
         reject("Problem name already exist!");
       } else {
