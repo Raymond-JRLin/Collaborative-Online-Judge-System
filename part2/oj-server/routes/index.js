@@ -7,4 +7,4 @@ router.get('/', function (req, res) {
   res.sendFile("index.html", { root: path.join(__dirname, '../../public/') });
 });
 
-module.export = router;
+module.exports = router;
