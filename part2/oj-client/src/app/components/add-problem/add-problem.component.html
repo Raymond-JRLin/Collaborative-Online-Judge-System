@@ -11,8 +11,9 @@
     </div>
 
     <div class="form-group">
-      <label for="difficulty">Problem Name</label>
+      <label for="difficulty">Difficulty</label>
       <select type="text" class="form-control" id="difficulty" name="difficulty" [(ngModel)]="newProblem.difficulty">
+        <option value="" disabled selected>Select difficulty</option>
         <option *ngFor="let difficulty of difficulties" [value]="difficulty">
           {{difficulty}}
         </option>
