@@ -10,9 +10,10 @@ import { ProblemListComponent } from './components/problem-list/problem-list.com
 import { ProblemDetailComponent } from './components/problem-detail/problem-detail.component';
 
 import { DataService } from "./services/data.service";
-import { Auth } from "./services/auth.service";
+import { AuthService } from "./services/auth.service";
 import { AddProblemComponent } from './components/add-problem/add-problem.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 @NgModule({
@@ -21,20 +22,21 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     ProblemListComponent,
     ProblemDetailComponent,
     AddProblemComponent,
-    NavbarComponent
+    NavbarComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    routing,
   ],
   providers: [{
     provide: "data",
     useClass: DataService
   },{
     provide: "auth",
-    useClass: Auth
+    useClass: AuthService
   }],
   bootstrap: [AppComponent]
 })
