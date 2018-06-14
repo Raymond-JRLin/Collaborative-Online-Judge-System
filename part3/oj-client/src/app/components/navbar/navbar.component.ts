@@ -15,17 +15,19 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     // show username if logged in
-    // if (this.auth.authenticated()) {
-    //     this.username = this.auth.getProfile().nickname;
-    // }
+    if (this.auth.authenticated()) {
+        this.username = this.auth.getProfile().nickname;
+    }
   }
 
   login(): void {
+    localStorage.setItem('curLocation', window.location.href);
     this.auth.login();
   }
 
   logout(): void {
     this.auth.logout();
+    localStorage.removeItem('curLocation');
   }
 
 }
