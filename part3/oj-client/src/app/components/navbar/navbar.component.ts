@@ -11,7 +11,7 @@ export class NavbarComponent implements OnInit {
 
   username = "";
 
-  constructor( @Inject('auth') private auth) { }
+  constructor( @Inject('auth') public auth) { }
 
   ngOnInit() {
     // show username if logged in
