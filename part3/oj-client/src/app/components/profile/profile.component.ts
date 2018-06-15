@@ -7,8 +7,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  email: string = '';
-  username: string = '';
+  email = '';
+  username = '';
 
   constructor(@Inject('auth') private auth) { }
 
