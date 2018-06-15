@@ -11,7 +11,7 @@ import { Http, Response, Headers } from '@angular/http';
 @Injectable()
 export class AuthService {
   // configure Auth0
-  clientId = 'Z-GnGnRCV8i4fg_MoaxyGjze_LidaA_v';
+  clientId = 'Z-GnGnRCV8i4fg_MOaxyGJze_LidaA_v';
   domain = 'raymondcoj.auth0.com';
   // lock = new Auth0Lock(this.clientId, this.domain, {});
   auth0 = new auth0.WebAuth({
@@ -33,22 +33,23 @@ export class AuthService {
   public login() {
     // call the show method to display the widget
     this.auth0.authorize();
+    console.log(this.getProfile());
   }
 
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
           window.location.hash = '';
-          // const accessToken = authResult.accessToken;
-          // this.auth0.client.userInfo(accessToken, (error: string, profile: Object) => {
-          //   localStorage.setItem('profil', JSON.stringify(profile));
-          //   this.setSession(authResult);
-          //   window.location.href = localStorage.getItem('curLocation');
-          //   console.log(this.auth0);
-          //   console.log('handle authentication');
-          // });
-          this.setSession(authResult);
-          this.router.navigate(['/home']);
+          const accessToken = authResult.accessToken;
+          this.auth0.client.userInfo(accessToken, (error: string, profile: Object) => {
+            localStorage.setItem('profile', JSON.stringify(profile));
+            this.setSession(authResult);
+            window.location.href = localStorage.getItem('curLocation');
+            console.log(this.auth0);
+            console.log('handle authentication');
+          });
+          // this.setSession(authResult);
+          // this.router.navigate(['/home']);
       } else if (err) {
         this.router.navigate(['/home']);
         console.log(err);
@@ -112,9 +113,9 @@ export class AuthService {
     return Promise.reject(error.message || error);
   }
 
-  // public getRoles(): Object {
-  //   const appData = 'https://coj-authorization-domain.com/app_metadata';
-  //   return this.getProfile()[appData].authorization.roles;
-  // }
+  public getRoles(): Object {
+    const appData = 'https://coj-authorization-domain.com/app_metadata';
+    return this.getProfile()[appData].authorization.roles;
+  }
 
 }
