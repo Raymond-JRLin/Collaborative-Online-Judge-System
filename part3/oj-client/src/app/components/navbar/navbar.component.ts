@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     // show username if logged in
-    if (this.auth.authenticated()) {
+    if (this.auth.isAuthenticated()) {
         this.username = this.auth.getProfile().nickname;
     }
   }
