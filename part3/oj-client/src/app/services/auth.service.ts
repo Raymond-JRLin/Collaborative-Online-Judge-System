@@ -20,7 +20,7 @@ export class AuthService {
     responseType: 'token id_token',
     audience: 'https://raymondcoj.auth0.com/userinfo',
     redirectUri: 'http://localhost:3000/callback',
-    scope: 'openid'
+    scope: 'openid profile email'
   });
 
   constructor(public router: Router, private http: Http) {
@@ -66,11 +66,11 @@ export class AuthService {
     // console.log('set session');
   }
 
-  public authenticated() {
-    // check if there's an unexpired JWT
-    // this searches for an item in localStorage with key == 'id_token'
-    return tokenNotExpired();
-  }
+  // public authenticated() {
+  //   // check if there's an unexpired JWT
+  //   // this searches for an item in localStorage with key == 'id_token'
+  //   return tokenNotExpired();
+  // }
 
   public logout() {
     // remove token from localStorage
