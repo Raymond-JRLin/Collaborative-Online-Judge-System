@@ -5,51 +5,44 @@ import { filter } from 'rxjs/operators';
 import * as auth0 from 'auth0-js';
 import { Http, Response, Headers } from '@angular/http';
 
-// avoid name not found warnings
-// declare var Auth0Lock: any;
 
 @Injectable()
 export class AuthService {
   // configure Auth0
   clientId = 'Z-GnGnRCV8i4fg_MOaxyGJze_LidaA_v';
   domain = 'raymondcoj.auth0.com';
-  // lock = new Auth0Lock(this.clientId, this.domain, {});
+
   auth0 = new auth0.WebAuth({
     clientID: this.clientId,
     domain: this.domain,
     responseType: 'token id_token',
     audience: 'https://raymondcoj.auth0.com/userinfo',
     redirectUri: 'http://localhost:3000/callback',
-    scope: 'openid profile email'
+    scope: 'openid profile email app_metadata'
   });
 
-  constructor(public router: Router, private http: Http) {
-    // add callback for lock 'authenticated' event
-    // this.lock.on("authenticated", (authResult) => {
-    //   localStorage.setItem('id_token', authResult.idToken);
-    // });
-  }
+  constructor(public router: Router, private http: Http) {}
 
   public login() {
     // call the show method to display the widget
     this.auth0.authorize();
-    console.log(this.getProfile());
+    // console.log(this.getProfile());
   }
 
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-          window.location.hash = '';
-          const accessToken = authResult.accessToken;
-          this.auth0.client.userInfo(accessToken, (error: string, profile: Object) => {
-            localStorage.setItem('profile', JSON.stringify(profile));
-            this.setSession(authResult);
-            window.location.href = localStorage.getItem('curLocation');
-            console.log(this.auth0);
-            console.log('handle authentication');
-          });
-          // this.setSession(authResult);
-          // this.router.navigate(['/home']);
+        window.location.hash = '';
+        const accessToken = authResult.accessToken;
+        this.auth0.client.userInfo(accessToken, (error: string, profile: Object) => {
+          localStorage.setItem('profile', JSON.stringify(profile));
+          this.setSession(authResult);
+          window.location.href = localStorage.getItem('curLocation');
+          console.log(this.auth0);
+          console.log('handle authentication');
+        });
+        // this.setSession(authResult);
+        // this.router.navigate(['/home']);
       } else if (err) {
         this.router.navigate(['/home']);
         console.log(err);
