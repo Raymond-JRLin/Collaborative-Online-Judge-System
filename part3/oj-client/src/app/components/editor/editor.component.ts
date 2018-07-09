@@ -29,8 +29,14 @@ int main() {
 }`, 'Python':
     `class Solution
     def example
-    // Type your Python code here`
+    # Type your Python code here`
   };
+
+  modes = {
+    'Java': 'java',
+    'C++': 'c_cpp',
+    'Python': 'python'
+  }
 
   constructor() { }
 
@@ -47,7 +53,7 @@ int main() {
   }
 
   resetEditor(): void {
-    this.editor.getSession().setMode('ace/mode/' + this.language.toLowerCase());
+    this.editor.getSession().setMode('ace/mode/' + this.modes[this.language]);
     this.editor.setValue(this.defaultContent[this.language]);
   }
 
