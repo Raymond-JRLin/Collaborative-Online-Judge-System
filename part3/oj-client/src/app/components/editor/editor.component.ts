@@ -51,4 +51,9 @@ int main() {
     this.editor.setValue(this.defaultContent[this.language]);
   }
 
+  submit(): void {
+    let user_code = this.editor.getValue(); // get code in ace
+    console.log(user_code);
+  }
+
 }
