@@ -16,6 +16,7 @@ import { AuthGuardService } from "./services/auth-guard.service";
 import { AddProblemComponent } from './components/add-problem/add-problem.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { EditorComponent } from './components/editor/editor.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     ProblemDetailComponent,
     AddProblemComponent,
     NavbarComponent,
-    ProfileComponent
+    ProfileComponent,
+    EditorComponent
   ],
   imports: [
     BrowserModule,
