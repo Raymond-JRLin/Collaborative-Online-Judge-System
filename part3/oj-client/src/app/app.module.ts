@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+// import { Http, Response, Headers } from '@angular/http';
 
 import { routing } from "./app.routes";
 
@@ -38,10 +39,10 @@ import { ProfileComponent } from './components/profile/profile.component';
   },{
     provide: "auth",
     useClass: AuthService
-  },/*{
+  },{
     provide: "authGuard",
-    useClass: */AuthGuardService/*
-  }*/],
+    useClass: AuthGuardService
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
