@@ -16,4 +16,12 @@ export class AuthGuardService implements CanActivate {
     }
   }
 
+  isAdmin(): boolean {
+    if (this.auth.isAuthenticated()){
+      const roles = this.auth.getRoles();
+      return roles.includes('admin');
+    }
+    return false;
+  }
+
 }
