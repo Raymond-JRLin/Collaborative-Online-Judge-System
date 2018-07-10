@@ -45,7 +45,7 @@ import { EditorComponent } from './components/editor/editor.component';
   },{
     provide: "authGuard",
     useClass: AuthGuardService
-  },,{
+  },{
     provide: "collaboration",
     useClass: CollaborationService
   }],
