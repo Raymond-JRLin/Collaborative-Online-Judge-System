@@ -70,6 +70,12 @@ int main() {
         this.collaboration.change(JSON.stringify(e));
       }
     });
+
+    // bind cursor listener 
+    this.editor.getSession().getSelection().on("changeCursor", () => {
+      let cursor = this.editor.getSession().getSelection().getCursor();
+      this.collaboration.cursorMove(JSON.stringify(cursor));
+    });
   }
 
   setLanguage(language: string): void {
