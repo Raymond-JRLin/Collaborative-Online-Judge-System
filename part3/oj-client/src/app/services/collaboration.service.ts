@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { COLORS } from '../../assets/colors';
 
 declare var io: any;
+declare var ace: any;
 
 @Injectable()
 export class CollaborationService {
@@ -23,7 +24,7 @@ export class CollaborationService {
       editor.getSession().getDocument().applyDeltas([delta]);
     });
 
-    this.collaborationSocket.on("cursorMove", (cursor) => {
+    this.collaborationSocket.on("cursorMove", cursor => {
       console.log("cursor move: " + cursor);
       let session = editor.getSession();
       cursor = JSON.parse(cursor);
@@ -40,9 +41,16 @@ export class CollaborationService {
         let css = document.createElement("style");
         css.type = "text/css";
         css.innerHTML = ".editor_cursor_" + changeClientId
-            + " {position: absolute; background:" + COLORS[this.clientNum] + ";"
+            + " { position: absolute; background:" + COLORS[this.clientNum] + ";"
             + " z-index: 100; width: 3px !important; }";
+
+        document.body.appendChild(css);
+        this.clientNum++;
       }
+
+      let Range = ace.require('ace/range').Range;
+      let newMarker = session.addMarker(new Range(x, y, x, y + 1), 'editor_cursor_' + changeClientId, true);
+      this.clientsInfo[changeClientId]['marker'] = newMarker;
     });
 
     // test
@@ -56,7 +64,7 @@ export class CollaborationService {
   }
 
   cursorMove(cursor: string): void {
-    this.collaborationSocket.emit("cursorMOve", cursor);
+    this.collaborationSocket.emit("cursorMove", cursor);
   }
 
 }

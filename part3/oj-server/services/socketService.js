@@ -36,7 +36,7 @@ module.exports = function (io) {
     });
 
     // handle cursorMove events
-    socket.on('cursorMove', delta => {
+    socket.on('cursorMove', cursor => {
       console.log("cursorMove" + socketIdToSessionId[socket.id] + " " + cursor);
       let sessionId = socketIdToSessionId[socket.id];
       cursor = JSON.parse(cursor);

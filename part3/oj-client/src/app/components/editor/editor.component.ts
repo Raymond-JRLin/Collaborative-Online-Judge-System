@@ -71,9 +71,10 @@ int main() {
       }
     });
 
-    // bind cursor listener 
+    // bind cursor listener
     this.editor.getSession().getSelection().on("changeCursor", () => {
       let cursor = this.editor.getSession().getSelection().getCursor();
+      console.log('cursor moves: ' + JSON.stringify(cursor))
       this.collaboration.cursorMove(JSON.stringify(cursor));
     });
   }
