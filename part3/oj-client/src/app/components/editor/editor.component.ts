@@ -77,6 +77,9 @@ int main() {
       console.log('cursor moves: ' + JSON.stringify(cursor))
       this.collaboration.cursorMove(JSON.stringify(cursor));
     });
+
+    // request for every previous events
+    this.collaboration.restoreBuffer();
   }
 
   setLanguage(language: string): void {
