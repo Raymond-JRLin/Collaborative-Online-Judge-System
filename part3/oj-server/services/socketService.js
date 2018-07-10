@@ -56,7 +56,7 @@ module.exports = function (io) {
     });
 
     function forwardEvents(socketId, eventName, dataString) {
-      let sessionId = socketIdToSessionId[socket.id];
+      let sessionId = socketIdToSessionId[socketId];
 
       if (sessionId in collaborations) {
         let participants = collaborations[sessionId]['participants'];
