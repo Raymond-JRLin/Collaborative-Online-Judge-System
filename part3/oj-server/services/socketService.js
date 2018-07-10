@@ -20,17 +20,19 @@ module.exports = function (io) {
     // socket event listeners
     socket.on('change', delta => {
       console.log("change" + socketIdToSessionId[socket.id] + " " + delta);
-      let sessionId = socketIdToSessionId[socket.id];
-      if (sessionId in collaborations) {
-        let participants = collaborations[sessionId]['participants'];
-        for (let i = 0; i < participants.length; i++) {
-          if (socket.id != participants[i]) {
-            io.to(participants[i]).emit("change", delta);
-          }
-        }
-      } else {
-        console.log("WARNING: could not tie socket_id to any collaboration");
-      }
+      // let sessionId = socketIdToSessionId[socket.id];
+      // if (sessionId in collaborations) {
+      //   let participants = collaborations[sessionId]['participants'];
+      //   for (let i = 0; i < participants.length; i++) {
+      //     if (socket.id != participants[i]) {
+      //       io.to(participants[i]).emit("change", delta);
+      //     }
+      //   }
+      // } else {
+      //   console.log("WARNING: could not tie socket_id to any collaboration");
+      // }
+      // use the same function
+      forwardEvents(socket.id, 'change', delta);
     });
 
     // handle cursorMove events
@@ -39,17 +41,34 @@ module.exports = function (io) {
       let sessionId = socketIdToSessionId[socket.id];
       cursor = JSON.parse(cursor);
       cursor['socketId'] = socket.id;
+      // if (sessionId in collaborations) {
+      //   let participants = collaborations[sessionId]['participants'];
+      //   for (let i = 0; i < participants.length; i++) {
+      //     if (socket.id != participants[i]) {
+      //       io.to(participants[i]).emit("cursorMove", cursor);
+      //     }
+      //   }
+      // } else {
+      //   console.log("WARNING: could not tie socket_id to any collaboration");
+      // }
+      // use same function
+      forwardEvents(socket.id, 'cursorMove', JSON.stringify(cursor));
+    });
+
+    function forwardEvents(socketId, eventName, dataString) {
+      let sessionId = socketIdToSessionId[socket.id];
+
       if (sessionId in collaborations) {
         let participants = collaborations[sessionId]['participants'];
         for (let i = 0; i < participants.length; i++) {
           if (socket.id != participants[i]) {
-            io.to(participants[i]).emit("cursorMove", cursor);
+            io.to(participants[i]).emit(eventName, dataString);
           }
         }
       } else {
         console.log("WARNING: could not tie socket_id to any collaboration");
       }
-    });
+    }
 
     // console.log(socket);
     //
