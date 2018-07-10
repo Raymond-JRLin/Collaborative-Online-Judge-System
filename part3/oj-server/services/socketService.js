@@ -15,16 +15,16 @@ module.exports = function (io) {
     socketIdToSessionId[socket.id] = sessionId;
 
     // add socket.io to corresponding collaboration session participants
-    // in cache
+    // in memory
     if (sessionId in collaborations) {
       collaborations[sessionId]['participants'].push(socket.id);
     } else {
-      // no data in cache, go redis
+      // no data in memory, go redis
       redisClient.get(sessionPath + '/' + sessionId, function (data) {
         if (data) {
           // redis has data
           console.log("session terminated previously, pulling back from Redis.");
-          // store to cache
+          // store to memory
           collaborations[sessionId] = {
             'cachedChangeEvents': JSON.parse(data),
             'participants': []
