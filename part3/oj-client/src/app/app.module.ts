@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-// import { Http, Response, Headers } from '@angular/http';
 
 import { routing } from "./app.routes";
 
@@ -37,6 +37,7 @@ import { SearchPipe } from './pipes/search.pipe';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     routing,
   ],
