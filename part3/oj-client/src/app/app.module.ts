@@ -14,6 +14,8 @@ import { DataService } from "./services/data.service";
 import { AuthService } from "./services/auth.service";
 import { AuthGuardService } from "./services/auth-guard.service";
 import { CollaborationService } from "./services/collaboration.service";
+import { InputService } from "./services/input.service";
+
 import { AddProblemComponent } from './components/add-problem/add-problem.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -50,6 +52,9 @@ import { SearchPipe } from './pipes/search.pipe';
   },{
     provide: "collaboration",
     useClass: CollaborationService
+  },{
+    provide: "input",
+    useClass: InputService
   }],
   bootstrap: [AppComponent]
 })
