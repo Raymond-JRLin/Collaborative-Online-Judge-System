@@ -1,4 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { FormControl } from "@angular/forms";
+import { Subscription } from "rxjs/Subscription";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -11,13 +14,34 @@ export class NavbarComponent implements OnInit {
 
   username = "";
 
-  constructor( @Inject('auth') public auth) { }
+  searchBox: FormControl = new FormControl();
+  subscription: Subscription;
+
+  constructor(@Inject('auth') public auth,
+              @Inject('input') private input,
+              private router: Router) { }
 
   ngOnInit() {
     // show username if logged in
     if (this.auth.isAuthenticated()) {
         this.username = this.auth.getProfile().nickname;
     }
+
+    this.subscription = this.searchBox
+                            .valueChanges
+                            .subscribe(
+                              term => {
+                                this.input.changeInput(term);
+                              }
+                            );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  searchProblem(): void {
+    this.router.navigate(['/problems']);
   }
 
   login(): void {
