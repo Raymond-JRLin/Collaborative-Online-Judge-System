@@ -21,7 +21,7 @@ export class EditorComponent implements OnInit {
 
   defaultContent = {
     'Java':
-    `public class Solution {
+    `public class Example {
     public static void main(String[] args) {
       // Type your Java code here
     }
@@ -33,7 +33,7 @@ int main() {
   return 0;
 }`, 'Python':
     `class Solution
-    def example
+    def example():
     # Type your Python code here`
   };
 

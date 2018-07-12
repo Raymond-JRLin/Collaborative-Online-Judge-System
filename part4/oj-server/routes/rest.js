@@ -37,10 +37,11 @@ router.post("/build_and_run", jsonParser, function (req, res) {
 
   console.log(lang + '; ' + userCode);
 
+  // Send build and run request to executor.
   rest_client.methods.build_and_run(
     {
       data: { code: userCode, lang: lang},
-      header: { "Content-Type": "application/json"}
+      headers: { "Content-Type": "application/json"}
     }, (data, response) => {
       console.log("Received response from execution server: " + response);
       const text = `Build output: ${data['build']}
@@ -50,6 +51,7 @@ router.post("/build_and_run", jsonParser, function (req, res) {
       res.json(data);
     }
   );
+
 })
 
 module.exports = router;
