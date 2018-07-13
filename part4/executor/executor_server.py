@@ -1,5 +1,6 @@
 import executor_utils as eu
 import json
+import sys
 
 from flask import Flask
 from flask import jsonify
@@ -28,4 +29,8 @@ def build_and_run():
 
 if __name__ == "__main__":
     eu.load_image() # load first
-    app.run(debug=True)
+
+    port = int(sys.argv[1]) # set different running port
+    print "Executor running on: %d" % port
+
+    app.run(port=port)
